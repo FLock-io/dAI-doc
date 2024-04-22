@@ -11,7 +11,7 @@ If you want to submit the model for a given training task, you have to stake thr
 #### Get details of a task
 
 ```bash
-curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/get?task_id=21'
+curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/get?task_id=<task id>'
 ```
 
 #### Submit your trained model
@@ -22,7 +22,7 @@ curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/submit-result'
 --header 'flock-api-key: <your-api-key-with-staking-on-this-task-as-node>' \
 --header 'Content-Type: application/json' \
 --data '{
-    "task_id": 21,
+    "task_id": <task id>,
     "data":{
         "hg_repo_id": "your-hg-name/model-name-7b"
     }
@@ -38,7 +38,7 @@ Similar to training task, you have to stake as a validator for a given task befo
 #### Request a random task submission for a given task
 
 ```bash
-curl --location --request POST 'https://fed-ledger-staging.flock.io/api/v1/tasks/request-validation-assignment/21' \
+curl --location --request POST 'https://fed-ledger-staging.flock.io/api/v1/tasks/request-validation-assignment/<task id>' \
 --header 'flock-api-key: <your-api-key-with-staking-on-this-task-as-validator>'
 ```
 
@@ -47,7 +47,7 @@ In response, you will get a `id` for this validation assignment you are assigned
 After you run the validation script and get the score, you can upload the validation result through
 
 ```bash
-curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validation-assignment/1' \
+curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validation-assignment/<assignment id>' \
 --header 'flock-api-key: <your-api-key-with-staking-on-this-task-as-validator>' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -61,7 +61,7 @@ curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validat
 If you couldn't complete the validation task for this submission, you can manually submit a failed result to Fed Ledger so that you can continue on other validation assignments.
 
 ```bash
-curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validation-assignment/1' \
+curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validation-assignment/<assignment id>' \
 --header 'flock-api-key: <your-api-key-with-staking-on-this-task-as-validator>' \
 --header 'Content-Type: application/json' \
 --data '{
