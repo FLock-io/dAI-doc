@@ -1,21 +1,32 @@
-# testnet-doc
-Documentation on node and validators
+# TestNet Documentation
+Documentation on training nodes and validators
+
+
+## Table of Contents 
+
+1. [Fed Ledger](#fed-ledger)  
+2. [Training Node](#training-node)   
+	- [How to participate a LLM training task](#how-to-participate-a-llm-training-task) 
+3. [Validator](#validator)  
+	- [How to participate a LLM validation task](#how-to-participate-a-llm-validation-task)   
+
+.
 
 ## Fed Ledger
 ## Training Node
 ### How to participate a LLM training task
-To interact with FLock's Fed Ledger service, you have to obtain API key from `train.flock.io` first.
+To interact with FLock's Fed Ledger service, first obtain an API key from `train.flock.io`.
 
-If you want to submit the model for a given training task, you have to stake through the Web UI for that task, or else Fed Ledger will not accept your submission.
+**Staking Requirement**: To submit a model for a training task, you must stake through the Web UI. Otherwise, Fed Ledger will not accept your submission.
 
-#### Get details of a task
-
+#### Getting Task Details
+To get details of a specific task, use the following command:
 ```bash
 curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/get?task_id=<task id>'
 ```
 
-#### Submit your trained model
-To submit your trained model, you have to upload all model files to your public huggingface model repo first and then provide the repo name.
+#### Submitting Your Trained Models
+After training your model, you need to upload all model files to your public Hugging Face model repository. Then, provide the repo name with the following command:
 
 ```bash
 curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/submit-result' \
@@ -31,20 +42,21 @@ curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/submit-result'
 
 ## Validator
 
-### How to participate as a LLM training task validator
+### How to participate a LLM validation task
 
-Similar to training task, you have to stake as a validator for a given task before you can request a task submission to validate on.
+Similar to the training task, to act as a validator, you must stake for a given task before you can request a submission to validate.
 
-#### Request a random task submission for a given task
-
+#### Requesting a Validation Assignment
+To request a random task submission for validation, use the following command:
 ```bash
 curl --location --request POST 'https://fed-ledger-staging.flock.io/api/v1/tasks/request-validation-assignment/<task id>' \
 --header 'flock-api-key: <your-api-key-with-staking-on-this-task-as-validator>'
 ```
 
-In response, you will get a `id` for this validation assignment you are assigned. You need to provide this `id` when you upload the validation result.
+In response, you will get an `id` for this validation assignment you are assigned. You need to provide this `id` when you upload the validation result.
 
-After you run the validation script and get the score, you can upload the validation result through
+#### Submitting Validation Results
+Once assigned a validation task, run the validation script to obtain the score, then submit the validation result with the following command:
 
 ```bash
 curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validation-assignment/<assignment id>' \
@@ -58,7 +70,7 @@ curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validat
 }'
 ```
 
-If you couldn't complete the validation task for this submission, you can manually submit a failed result to Fed Ledger so that you can continue on other validation assignments.
+**Submitting a failed result**: If you're unable to complete the validation task, you can manually submit a failed result to Fed Ledger so that you can continue on other validation assignments, with this command:
 
 ```bash
 curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validation-assignment/<assignment id>' \
