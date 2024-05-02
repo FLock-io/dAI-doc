@@ -68,3 +68,7 @@ curl --location 'https://fed-ledger-staging.flock.io/api/v1/tasks/update-validat
     "status": "failed"
 }'
 ```
+
+## Troubleshooting
+
+- You should be able to view and generate your API keys at `train.flock.io` once you have staked $FML. If you are not able to do so, please try disconnet your wallet, clear your cookies, and connect with your wallet again. Please also make sure you are connected with the wallet which you used to stake for tasks. 
