@@ -2,8 +2,7 @@
 
 - Web3 Wallet - You will use this to connect to the web app at train.flock.io
 
-- $FML - FLock’s testnet tokens required for staking. You can check out the contract [here](https://sepolia.basescan.org/address/0xeF39985160FEdd389B46E6dB14d6aEa26cb5981A\)).
-
+- $FML - FLock’s testnet tokens required for staking. You can check out the contract [here](https://sepolia.basescan.org/address/0xeF39985160FEdd389B46E6dB14d6aEa26cb5981A\)). You should first get whitelisted [here](https://blog.flock.io/news/trainflock), then obatin $FML at our faucet [here](https://train.flock.io/faucet).
 
 
 - Base Sepolia ETH - FLock.io testnet is deployed on Base Sepolia. You will need Base Sepolia ETH for gas to execute the staking transactions.
@@ -101,9 +100,9 @@ After receiving a validation assignment (see Step 3) you must run the validation
 ```bash
 FLOCK_API_KEY="<your-api-key>" python validate.py \
 --model_name_or_path <hg_repo_id> \
---template_name <base_model> \
+--base_model <base_model> \
 --eval_file ./data/dummy_data.jsonl \
---max_seq_length 128 \
+--context_length 128 \
 --assignment_id <assignment-id> \
 --validation_args_file <validation_config.json.example OR validation_config_cpu.json.example>
 ```
@@ -114,7 +113,7 @@ FLOCK_API_KEY="<your-api-key>" python validate.py \
 
 4. Replace `<base_model>` with the corresponding value from the response body in Step 3
 
-5. Replace `<eval_file>` with the `validation_set_url` value from the response body in Step 3
+5. For `<eval_file>`, please navigate to the url in `validation_set_url` in the response body in Step 3 and download the file. `<eval_file>` should be pointing to where you save this file. Note that this link expires in 60 minutes so be sure to download it in time.
 
 6. Replace `<assignment-id> `with the `<id> `value from the response body in Step 3
 
@@ -124,13 +123,15 @@ FLOCK_API_KEY="<your-api-key>" python validate.py \
 
    2. `Validation_config_cpu.json.example `to run on CPU
 
-8. Run the command
+8. Go to https://github.com/FLock-io/llm-loss-validator, git clone the repository and run the validation script from there.
 
-The `eval_loss` value is the loss score you’ve submitted for this validation assignment.
+You should get a response similar to the following:
 
 ```bash
-{"id":1,"task_submission":{"task_id":23,"data":{"hg_repo_id":"Nicoooolasweee/qwen-1.5-4b-function","base_model":"qwen1.5"},"id":11},"assigned_at":"2024-04-24T18:21:45.047503","status":"completed","data":{"loss":0.17}}% 
+evaluate result is {'eval_loss': 1.5328044891357422, 'eval_runtime': 1091.4278, 'eval_samples_per_second': 0.916, 'eval_steps_per_second': 0.458}
 ```
+
+The `eval_loss` value is the loss score you’ve submitted for this validation assignment.
 
 _NOTE: If you couldn't complete the validation task for this submission, you can manually submit a failed result to Fed Ledger so that you can continue on other validation assignments._
 
