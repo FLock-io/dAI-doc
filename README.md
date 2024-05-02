@@ -1,5 +1,5 @@
 # Decentralised AI Training Platform by FLock.io
-Documentation on node and validators for train.flock.io
+Documentation on node and validators for `train.flock.io`
 
 ## Fed Ledger
 ## Training Node
